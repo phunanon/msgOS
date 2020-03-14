@@ -2,7 +2,17 @@
 mkdir -p bin
 
 cd corpus/programs
-nodejs ../../compilers/JavaScript/compiler.js init.chi
+if ! [ -x "$(command -v node)" ]; then
+  if ! [ -x "$(command -v nodejs)" ]; then
+    echo 'Error: nodeJs not installed.' >&2
+    exit 1
+  else 
+    nodejs ../../compilers/JavaScript/compiler.js init.chi
+  fi
+else 
+  node ../../compilers/JavaScript/compiler.js init.chi
+fi
+
 mv init.kua ../../bin
 cd ../..
 
